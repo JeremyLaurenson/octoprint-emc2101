@@ -6,6 +6,8 @@ This plugin allows you to control the temperature of your printer enclosure usin
 
 This plugin controls an Adafruit EMC2101 board: https://www.adafruit.com/product/4808
 
+<img width="1586" alt="pcb" src="https://user-images.githubusercontent.com/942556/153915344-50ffb32f-8c90-438d-971e-3a94299c0e5f.png">
+
 Connect board VIN (red wire) to RPi 3V
 Connect board GND (black wire) to RPi GND
 Connect board SCL (yellow wire) to RPi SCL
@@ -16,8 +18,6 @@ Connect board TACH (green wire) to fan Tach output
 Connect DC jack positive pin to Fan V+ input
 Connect DC jack GND to Fan V-/GND input
 Connect DC jack GND to RPi GND
-
-<img width="835" alt="wiring" src="https://user-images.githubusercontent.com/942556/153914562-bbbe89f6-0c67-4c0a-ac8d-6ae551a8f02d.png">
 
 
 ## Setup
