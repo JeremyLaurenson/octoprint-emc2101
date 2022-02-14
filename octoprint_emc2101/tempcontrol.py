@@ -5,12 +5,9 @@ import board
 from adafruit_emc2101.emc2101_lut import EMC2101_LUT as EMC2101
 import sqlite3
 import os
+import sys
 
-emc2101_path = "/home/pi/.octoprint/data/emc2101"
-isExist = os.path.exists(emc2101_path)
-if not isExist:
-  os.makedirs(emc2101_path)
-sqlFileName=emc2101_path + "/emc2101.db"
+sqlFileName=sys.argv[1]
 
 minutes_to_keep=-60
 interval = 10
