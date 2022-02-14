@@ -17,7 +17,8 @@ Connect DC jack positive pin to Fan V+ input
 Connect DC jack GND to Fan V-/GND input
 Connect DC jack GND to RPi GND
 
-<img width="835" alt="wiring" src="https://user-images.githubusercontent.com/942556/153914041-ab1797b2-a87a-4fe9-9065-f1021a0bab93.png">
+<img width="835" alt="wiring" src="https://user-images.githubusercontent.com/942556/153914562-bbbe89f6-0c67-4c0a-ac8d-6ae551a8f02d.png">
+
 
 ## Setup
 
