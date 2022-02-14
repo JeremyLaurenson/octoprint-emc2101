@@ -126,7 +126,9 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         path = os.path.dirname(os.path.abspath(__file__))
         tempControlScript=path + "/tempcontrol.py"
         self._logger.info("Launching fan monitor %s" % tempControlScript)
-        p = Popen(['python', tempControlScript])
+        emc2101_path = self.get_plugin_data_folder();
+        sqlFileName=emc2101_path + "/emc2101.db"
+        p = Popen(['python', tempControlScript, sqlFileName])
 
     def on_shutdown(self):
         self._logger.info("Stopping fan monitor")
