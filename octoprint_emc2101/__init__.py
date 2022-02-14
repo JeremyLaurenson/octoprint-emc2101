@@ -43,41 +43,28 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
     def on_settings_save(self, data):
         octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
         emc2101_path = self.get_plugin_data_folder();
-        isExist = os.path.exists(emc2101_path)
-        if not isExist:
-            os.makedirs(emc2101_path)
         sqlFileName=emc2101_path + "/emc2101.db"
         conn = sqlite3.connect(sqlFileName)
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('target_temp','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["targettemp"]),self._settings.get(["targettemp"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed0','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed0"]),self._settings.get(["fanspeed0"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed1','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed1"]),self._settings.get(["fanspeed1"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed2','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed2"]),self._settings.get(["fanspeed2"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed3','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed3"]),self._settings.get(["fanspeed3"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed4','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed4"]),self._settings.get(["fanspeed4"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed5','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed5"]),self._settings.get(["fanspeed5"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed6','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed6"]),self._settings.get(["fanspeed6"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed7','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed7"]),self._settings.get(["fanspeed7"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('interval','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["interval"]),self._settings.get(["interval"]))
         conn.execute(sql)
-        conn.commit()
         sql="INSERT INTO settings (settingName, settingValue) VALUES ('historylines','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["minutestokeep"]),self._settings.get(["minutestokeep"]))
         conn.execute(sql)
         conn.commit()
@@ -86,9 +73,6 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         
     def on_settings_load(self):
         emc2101_path = self.get_plugin_data_folder()
-        isExist = os.path.exists(emc2101_path)
-        if not isExist:
-            os.makedirs(emc2101_path)
         sqlFileName=emc2101_path + "/emc2101.db"
         conn = sqlite3.connect(sqlFileName)
         sql="SELECT settingName,settingValue from settings"
