@@ -42,7 +42,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         
     def on_settings_save(self, data):
         octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
-        emc2101_path = "/home/pi/.octoprint/data/emc2101"
+        emc2101_path = self.get_plugin_data_folder();
         isExist = os.path.exists(emc2101_path)
         if not isExist:
             os.makedirs(emc2101_path)
@@ -85,7 +85,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         
         
     def on_settings_load(self):
-        emc2101_path = "/home/pi/.octoprint/data/emc2101"
+        emc2101_path = self.get_plugin_data_folder()
         isExist = os.path.exists(emc2101_path)
         if not isExist:
             os.makedirs(emc2101_path)
