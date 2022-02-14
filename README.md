@@ -13,20 +13,20 @@ This plugin controls an Adafruit EMC2101 board: https://www.adafruit.com/product
 
 Board to Raspberry Pi Connections:
 
-Connect Adafruit EMC2101 board VIN (red wire) to Raspberry Pi 3V pin
-Connect Adafruit EMC2101 board GND (black wire) to Raspberry Pi  GND
-Connect Adafruit EMC2101 board SCL - Serial Clock - (yellow wire) to Raspberry Pi  SCL
-Connect Adafruit EMC2101 board SDA - Serial Data - (blue wire) to Raspberry Pi SDA
+*Connect Adafruit EMC2101 board VIN (red wire) to Raspberry Pi 3V pin
+*Connect Adafruit EMC2101 board GND (black wire) to Raspberry Pi  GND
+*Connect Adafruit EMC2101 board SCL - Serial Clock - (yellow wire) to Raspberry Pi  SCL
+*Connect Adafruit EMC2101 board SDA - Serial Data - (blue wire) to Raspberry Pi SDA
 
 Board to 4 Pin PWM Fan connections:
 
-Connect board FAN (blue wire) to fan PWM input
-Connect board TACH (green wire) to fan Tach output
+*Connect board FAN (blue wire) to fan PWM input
+*Connect board TACH (green wire) to fan Tach output
 
 Fan Power connections:
-Connect the fan power source positive to Fan V+ input
-Connect the fan power source ground to Fan V-/GND input
-Connect the fan power source ground to Raspberry Pi GND
+*Connect the fan power source positive to Fan V+ input
+*Connect the fan power source ground to Fan V-/GND input
+*Connect the fan power source ground to Raspberry Pi GND
 
 
 ## Setup
