@@ -1,0 +1,52 @@
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label">{{ _('Target Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.targettemp">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at idle') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed0">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 1 degree over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed1">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 2 degrees over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed2">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 3 degrees over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed3">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 4 degrees over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed4">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 5 degrees over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed5">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 6 degrees over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed6">
+        </div><BR>
+        <label class="control-label">{{ _(' Fan %%  at 7 degrees over') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed7">
+        </div>
+        
+    </div>
+    <div class="control-group">
+        <label class="control-label">{{ _('Check interval in seconds') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.interval">
+        </div><BR>
+        <label class="control-label">{{ _('Minutes of data to keep in database') }}</label>
+        <div class="controls">
+            <input size="4" maxlength="4" type="text" data-bind="value: settings.plugins.emc2101.minutestokeep">
+        </div>
+                
+    </div>
+</form>
