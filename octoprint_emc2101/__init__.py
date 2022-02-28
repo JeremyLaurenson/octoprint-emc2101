@@ -1,20 +1,17 @@
 # coding=utf-8
 from __future__ import absolute_import
-
-### (Don't forget to remove me)
-# This is a basic skeleton for your plugin's __init__.py. You probably want to adjust the class name of your plugin
-# as well as the plugin mixins it's subclassing from. This is really just a basic skeleton to get you started,
-# defining your plugin as a template plugin, settings and asset plugin. Feel free to add or remove mixins
-# as necessary.
-#
-# Take a look at the documentation on what other plugin mixins are available.
-
+from pickle import FALSE
+import time
+import random
 import octoprint.plugin
-import sqlite3
 import os
-from subprocess import Popen
 from octoprint.events import Events, all_events
+from octoprint.util import RepeatedTimer
+import sys
+from subprocess import Popen, PIPE
 
+
+        
 
 
 class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
@@ -24,115 +21,332 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.EventHandlerPlugin
 
 ):
+    isDebugging = False
+    isDemo = False
+    sensors = []  # Array of strings with I2C channel numbers passed to the py scripts
+    detecteds=[]
+    fanspeeds=[]
+    temperatures=[]
+    targets=[]
 
+    isInLoop=False
     ##~~ SettingsPlugin mixin
     def get_settings_defaults(self):
-        targettemp=23
-        fanSpeed0=20
-        fanSpeed1=30
-        fanSpeed2=40
-        fanSpeed3=50
-        fanSpeed4=60
-        fanSpeed5=80
-        fanSpeed6=100
-        fanSpeed7=100
-        minutestokeep=-60
-        interval = 10
-        return dict(targettemp=targettemp, interval=interval, minutestokeep=minutestokeep,fanspeed0=fanSpeed0,fanspeed1=fanSpeed1,fanspeed2=fanSpeed2,fanspeed3=fanSpeed3,fanspeed4=fanSpeed4,fanspeed5=fanSpeed5,fanspeed6=fanSpeed6,fanspeed7=fanSpeed7)
+        # Doing this the old fashioned way because arrays into jinja and all that are a pain in the ass.
+        # Happy to take a pull request....
+        a_low_temp = 23.0       # Fan A is the native i2c appearance of an EMC2101
+        a_high_temp = 27.0
+        a_low_fan = 20
+        a_high_fan = 100
         
-    def on_settings_save(self, data):
-        octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
-        emc2101_path = self.get_plugin_data_folder();
-        sqlFileName=emc2101_path + "/emc2101.db"
-        conn = sqlite3.connect(sqlFileName)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('target_temp','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["targettemp"]),self._settings.get(["targettemp"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed0','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed0"]),self._settings.get(["fanspeed0"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed1','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed1"]),self._settings.get(["fanspeed1"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed2','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed2"]),self._settings.get(["fanspeed2"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed3','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed3"]),self._settings.get(["fanspeed3"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed4','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed4"]),self._settings.get(["fanspeed4"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed5','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed5"]),self._settings.get(["fanspeed5"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed6','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed6"]),self._settings.get(["fanspeed6"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('fanspeed7','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["fanspeed7"]),self._settings.get(["fanspeed7"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('interval','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["interval"]),self._settings.get(["interval"]))
-        conn.execute(sql)
-        sql="INSERT INTO settings (settingName, settingValue) VALUES ('historylines','%s') ON CONFLICT(settingName) DO UPDATE SET settingValue='%s'" % (self._settings.get(["minutestokeep"]),self._settings.get(["minutestokeep"]))
-        conn.execute(sql)
-        conn.commit()
-        conn.close()
+        b_low_temp = 23.0       # Fan B is the tca9548a channel 0 i2c appearance of an EMC2101
+        b_high_temp = 27.0
+        b_low_fan = 20
+        b_high_fan = 100
         
+        c_low_temp = 23.0       # Fan C is the tca9548a channel 1 i2c appearance of an EMC2101
+        c_high_temp = 27.0
+        c_low_fan = 20
+        c_high_fan = 100
         
-    def on_settings_load(self):
-        emc2101_path = self.get_plugin_data_folder()
-        sqlFileName=emc2101_path + "/emc2101.db"
-        conn = sqlite3.connect(sqlFileName)
-        sql="SELECT settingName,settingValue from settings"
-        cursor = conn.execute(sql)
-        targettemp=23
-        fanSpeed0=20
-        fanSpeed1=30
-        fanSpeed2=40
-        fanSpeed3=50
-        fanSpeed4=60
-        fanSpeed5=80
-        fanSpeed6=100
-        fanSpeed7=100
-        minutestokeep=-60
-        interval = 10
-        for row in cursor:
-           settingName=row[0]
-           settingValue=row[1]
-           if settingName=="target_temp":
-                targettemp=int(settingValue)
-           if settingName=="interval":
-                interval=int(settingValue)
-           if settingName=="fanspeed0":
-                fanSpeed0=int(settingValue)
-           if settingName=="fanspeed1":
-                fanSpeed1=int(settingValue)
-           if settingName=="fanspeed2":
-                fanSpeed2=int(settingValue)
-           if settingName=="fanspeed3":
-                fanSpeed3=int(settingValue)
-           if settingName=="fanspeed4":
-                fanSpeed4=int(settingValue)
-           if settingName=="fanspeed5":
-                fanSpeed5=int(settingValue)
-           if settingName=="fanspeed6":
-                fanSpeed6=int(settingValue)
-           if settingName=="fanspeed7":
-                fanSpeed7=int(settingValue)
-           if settingName=="interval":
-                interval=int(settingValue)
-           if settingName=="historylines":
-               minutestokeep=int(settingValue)
-        conn.close()
-        self._logger.info("Loaded settings: Target Temp is %d" % targettemp)
-        if minutestokeep<1:
-           minutestokeep=minutestokeep*-1
-        return dict(targettemp=targettemp, interval=interval, minutestokeep=minutestokeep,fanspeed0=fanSpeed0,fanspeed1=fanSpeed1,fanspeed2=fanSpeed2,fanspeed3=fanSpeed3,fanspeed4=fanSpeed4,fanspeed5=fanSpeed5,fanspeed6=fanSpeed6,fanspeed7=fanSpeed7)
-
+        d_low_temp = 23.0       # Fan D is the tca9548a channel 2 i2c appearance of an EMC2101
+        d_high_temp = 27.0
+        d_low_fan = 20
+        d_high_fan = 100
+        
+        e_low_temp = 23.0
+        e_high_temp = 27.0
+        e_low_fan = 20
+        e_high_fan = 100
+        
+        f_low_temp = 23.0
+        f_high_temp = 27.0
+        f_low_fan = 20
+        f_high_fan = 100
+        
+        g_low_temp = 23.0
+        g_high_temp = 27.0
+        g_low_fan = 20
+        g_high_fan = 100
+        
+        h_low_temp = 23.0
+        h_high_temp = 27.0
+        h_low_fan = 20
+        h_high_fan = 100
+        
+        i_low_temp = 23.0
+        i_high_temp = 27.0
+        i_low_fan = 20
+        i_high_fan = 100
+        
+        return dict(
+            a_low_fan=a_low_fan, a_high_fan=a_high_fan,a_low_temp=a_low_temp, a_high_temp=a_high_temp,
+            b_low_fan=b_low_fan, b_high_fan=b_high_fan,b_low_temp=b_low_temp, b_high_temp=b_high_temp,
+            c_low_fan=c_low_fan, c_high_fan=c_high_fan,c_low_temp=c_low_temp, c_high_temp=c_high_temp,
+            d_low_fan=d_low_fan, d_high_fan=d_high_fan,d_low_temp=d_low_temp, d_high_temp=d_high_temp,
+            e_low_fan=e_low_fan, e_high_fan=e_high_fan,e_low_temp=e_low_temp, e_high_temp=e_high_temp,
+            f_low_fan=f_low_fan, f_high_fan=f_high_fan,f_low_temp=f_low_temp, f_high_temp=f_high_temp,
+            g_low_fan=g_low_fan, g_high_fan=g_high_fan,g_low_temp=g_low_temp, g_high_temp=g_high_temp,
+            h_low_fan=h_low_fan, h_high_fan=h_high_fan,h_low_temp=h_low_temp, h_high_temp=h_high_temp,
+            i_low_fan=i_low_fan, i_high_fan=i_high_fan,i_low_temp=i_low_temp, i_high_temp=i_high_temp
+        )
+        
     def on_after_startup(self):
         self._logger.info("EMC2101 plugin is alive!")
-        path = os.path.dirname(os.path.abspath(__file__))
-        tempControlScript=path + "/tempcontrol.py"
-        self._logger.info("Launching fan monitor %s" % tempControlScript)
-        emc2101_path = self.get_plugin_data_folder();
-        sqlFileName=emc2101_path + "/emc2101.db"
-        p = Popen(['python', tempControlScript, sqlFileName])
+        self.check_emc2101()
+        self.start_timer()
+        
+
+
+    def start_timer(self):
+        if self.isDebugging:
+            self._logger.info("EMC2101 timer is starting")
+        timerDelay=int(len(self.sensors)*0.5) + 5
+        self._check_temp_timer = RepeatedTimer(timerDelay, self.emc2101loop, None, None, True)
+        self._check_temp_timer.start()
+
+
+    def emc2101loop(self):
+        if self.isDebugging:
+            self._logger.info("EMC2101 loop")
+        if self.isInLoop:
+            if self.isDebugging:
+                self._logger.info("EMC2101 loop aborted - already running")
+            return
+        self.isInLoop=True
+        
+        for sensor in self.sensors:
+            if self.isDebugging:
+                self._logger.info("Reading sensor at %s", sensor)
+            prefix="a"
+            if sensor=="1":
+                prefix="b"
+            elif sensor=="2":
+                prefix="c"
+            elif sensor=="3":
+                prefix="d"
+            elif sensor=="4":
+                prefix="e"
+            elif sensor=="5":
+                prefix="f"
+            elif sensor=="6":
+                prefix="g"
+            elif sensor=="7":
+                prefix="h"
+            elif sensor=="8":
+                prefix="i"
+            
+            low_temp=self.tofloat(self._settings.get([prefix + "_low_temp"]))
+            high_temp=self.tofloat(self._settings.get([prefix + "_high_temp"]))
+            low_fan=self.toint(self._settings.get([prefix + "_low_fan"]))
+            high_fan=self.toint(self._settings.get([prefix + "_high_fan"]))
+            if self.isDebugging:
+                self._logger.info("Low temp is %f and high temp is %f" % (low_temp,high_temp))
+                self._logger.info("Low fan is %d and high fan is %d" % (low_fan,high_fan))
+            temp, fans = self.read_emc2101(sensor)
+
+            self.fanspeeds[int(sensor)]=fans
+            self.temperatures[int(sensor)]=temp
+            
+            if self.isDebugging:
+                self._logger.info("Temperature is %f and fan speed is %f" % (temp,fans))
+            try:
+                calculated_speed = int(((temp - low_temp) * (high_fan - low_fan) / (high_temp - low_temp)) + low_fan)
+                if temp < low_temp:
+                    calculated_speed = low_fan
+            except:
+                calculated_speed = 0
+            if calculated_speed>100:
+                calculated_speed=100
+            self.targets[int(sensor)]=calculated_speed
+            if self.isDebugging:
+                self._logger.info("Calculated fan speed is %d" % calculated_speed)
+            temp, fans = self.write_emc2101(sensor,calculated_speed)
+        self._plugin_manager.send_plugin_message(self._identifier,
+                                                 dict(
+                                                     a_detected=self.detecteds[0],
+                                                     a_temp=self.temperatures[0],
+                                                     a_fanspeed=self.fanspeeds[0],
+                                                     a_target=self.targets[0],
+                                                     b_detected=self.detecteds[1],
+                                                     b_temp=self.temperatures[1],
+                                                     b_fanspeed=self.fanspeeds[1],
+                                                     b_target=self.targets[1],
+                                                     c_detected=self.detecteds[2],
+                                                     c_temp=self.temperatures[2],
+                                                     c_fanspeed=self.fanspeeds[2],
+                                                     c_target=self.targets[2],
+                                                     d_detected=self.detecteds[3],
+                                                     d_temp=self.temperatures[3],
+                                                     d_fanspeed=self.fanspeeds[3],
+                                                     d_target=self.targets[3],
+                                                     e_detected=self.detecteds[4],
+                                                     e_temp=self.temperatures[4],
+                                                     e_fanspeed=self.fanspeeds[4],
+                                                     e_target=self.targets[4],
+                                                     f_detected=self.detecteds[5],
+                                                     f_temp=self.temperatures[5],
+                                                     f_fanspeed=self.fanspeeds[5],
+                                                     f_target=self.targets[5],
+                                                     g_detected=self.detecteds[6],
+                                                     g_temp=self.temperatures[6],
+                                                     g_fanspeed=self.fanspeeds[6],
+                                                     g_target=self.targets[6],
+                                                     h_detected=self.detecteds[7],
+                                                     h_temp=self.temperatures[7],
+                                                     h_fanspeed=self.fanspeeds[7],
+                                                     h_target=self.targets[7],
+                                                     i_detected=self.detecteds[8],
+                                                     i_temp=self.temperatures[8],
+                                                     i_fanspeed=self.fanspeeds[8],
+                                                     i_target=self.targets[8]
+                                                      )
+        )
+        self.isInLoop=False
+
+        
+        
+
+    @staticmethod
+    def tofloat(value):
+        try:
+            val = float(value)
+            return val
+        except:
+            return 0
+
+    @staticmethod
+    def toint(value):
+        try:
+            val = int(value)
+            return val
+        except:
+            return 0
+
+    def check_emc2101(self):
+        if self.isDebugging:
+            self._logger.info("Checking for EMC2101 sensors....")
+        if True: #try:
+            self.sensors=[]
+            self.detecteds=[]
+            self.fanspeeds=[]
+            self.temperatures=[]
+            self.targets=[]
+            script = os.path.dirname(os.path.realpath(__file__)) + "/EMCSCAN.py"
+            cmd = [sys.executable, script]
+            stdout = Popen(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+            output, errors = stdout.communicate()
+            if len(errors) > 0:
+                self._logger.info("EMC2101 error: %s", errors)
+            self._settings.set(["a_detected"], 0)
+            self._settings.set(["b_detected"], 0)
+            self._settings.set(["c_detected"], 0)
+            self._settings.set(["d_detected"], 0)
+            self._settings.set(["e_detected"], 0)
+            self._settings.set(["f_detected"], 0)
+            self._settings.set(["g_detected"], 0)
+            self._settings.set(["h_detected"], 0)
+            self._settings.set(["i_detected"], 0)
+            temp_sensors = output.split("\n")
+            for sensor in temp_sensors:
+                if sensor.find("|")>0:
+                    channel, channelstatus = sensor.split("|")
+                    channelstatus=channelstatus.strip()
+                    channel=channel.strip()
+                    currentSensorFound=False
+                    if(self.isDemo):
+                        channelstatus="2101"
+
+                    if channelstatus=="2101":
+                        currentSensorFound=True
+                        self._logger.info("EMC2101 crontroller number %s is connected" , channel)
+                        self.sensors.append(channel)
+                        if channel=="0":
+                            self._settings.set(["a_detected"], 1)
+                        elif channel=="1":
+                            self._settings.set(["b_detected"], 1)
+                        elif channel=="2":
+                            self._settings.set(["c_detected"], 1)
+                        elif channel=="3":
+                            self._settings.set(["d_detected"], 1)
+                        elif channel=="4":
+                            self._settings.set(["e_detected"], 1)
+                        elif channel=="5":
+                            self._settings.set(["f_detected"], 1)
+                        elif channel=="6":
+                            self._settings.set(["g_detected"], 1)
+                        elif channel=="7":
+                            self._settings.set(["h_detected"], 1)
+                        elif channel=="8":
+                            self._settings.set(["i_detected"], 1)
+                    else:
+                        self._logger.info("EMC2101 controller number %s has no controller connected",channel)
+                if(currentSensorFound):
+                    self.detecteds.append(1)
+                    self.fanspeeds.append(0)
+                    self.targets.append(0)
+                    self.temperatures.append(0)
+                else:
+                    self.detecteds.append(0)
+                    self.fanspeeds.append(-1)
+                    self.targets.append(-1)
+                    self.temperatures.append(-1)
+
+                
+            return
+#        except Exception as ex:
+#            print(ex)
+#            self._logger.info(
+#                "Failed to execute EMC2101 python subscript...")
+#            return (0, 0)
+
+    def read_emc2101(self,sensor):
+        if self.isDebugging:
+            self._logger.info("Reading current values from EMC2101 sensors....")
+            if self.isDemo:
+                fansDemo = self.tofloat(random.randint(400, 1700))
+                tempDemo = self.tofloat(random.randint(23, 28))
+                return tempDemo, fansDemo    
+        try:
+            script = os.path.dirname(os.path.realpath(__file__)) + "/EMC2101.py"
+            cmd = [sys.executable, script, sensor]
+            stdout = Popen(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+            output, errors = stdout.communicate()
+            if len(errors) > 0:
+                self._logger.info("EMC2101 error: %s", errors)
+            temp, fans = output.split("|")
+            return (self.tofloat(temp.strip()),self.tofloat(fans.strip()))
+        except Exception as ex:
+            print(ex)
+            self._logger.info(
+                "Failed to execute EMC2101 python subscript...")
+            self.log_error(ex)
+            return (0, 0)
+
+    def write_emc2101(self,sensor,speed):
+        if self.isDebugging:
+            self._logger.info("Setting EMC2101 %s fan speed to %d...." % (sensor,speed))
+        if self.isDemo:
+            return (0,0)
+        try:
+            script = os.path.dirname(os.path.realpath(__file__)) + "/SETEMC2101.py"
+            cmd = [sys.executable, script, sensor, str(speed)]
+            stdout = Popen(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+            output, errors = stdout.communicate()
+            if len(errors) > 0:
+                self._logger.info("EMC2101 error: %s", errors)
+            temp, fans = output.split("|")
+            return (self.tofloat(temp.strip()),self.tofloat(fans.strip()))
+        except Exception as ex:
+            print(ex)
+            self._logger.info(
+                "Failed to execute EMC2101 python subscript...")
+            self.log_error(ex)
+            return (0, 0)
+
 
     def on_shutdown(self):
         self._logger.info("Stopping fan monitor")
-        p.terminate()
         
     def on_event(self,event, payload):
         if event == "PrintStarted":
@@ -142,9 +356,19 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         if event == "PrintDone":
             self._logger.info("A print is done. Resetting EMC2101")
             
-        
+    def get_settings_version(self):
+        return 3
+
+    def on_settings_migrate(self, target, current=None):
+        self._logger.warn("######### current settings version %s target settings version %s #########", current, target)
+
+            
+
+
+
     def get_template_configs(self):
         return [
+            dict(type="tab", custom_bindings=False),
             dict(type="settings", custom_bindings=False)
         ]
     ##~~ AssetPlugin mixin

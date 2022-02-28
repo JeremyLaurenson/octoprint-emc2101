@@ -14,11 +14,11 @@ plugin_package = "octoprint_emc2101"
 plugin_name = "OctoPrint-Emc2101"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.0.2"
+plugin_version = "0.0.3"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = """Enable control of a PWM fan for your enclosue controlled by an Adafruit 2101"""
+plugin_description = """Enable control of up to 9 PWM fans for your enclosue, each controlled by an Adafruit 2101"""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
 plugin_author = "Jeremy Laurenson"
@@ -33,7 +33,7 @@ plugin_url = "https://github.com/JeremyLaurenson/OctoPrint-Emc2101"
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["adafruit-circuitpython-emc2101"]
+plugin_requires = ["adafruit-circuitpython-emc2101","adafruit-circuitpython-tca9548a"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point

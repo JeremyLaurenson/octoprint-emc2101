@@ -1,0 +1,379 @@
+<h3>{{ _('Adafruit EMC2101') }}</h3>
+<div data-bind="if: a_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Primary sensor:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: a_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(a_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: a_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(a_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(a_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(a_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: b_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 0:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: b_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(b_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: b_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(b_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(b_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(b_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: c_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 1:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: c_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(c_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: c_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(c_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(c_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(c_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: d_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 2:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: d_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(d_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: d_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(d_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(d_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(d_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: e_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 3:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: e_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(e_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: e_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(e_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(e_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(e_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: f_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 4:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: f_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(f_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: f_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(f_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(f_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(f_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: g_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 5:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: g_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(g_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: g_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(g_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(g_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(g_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: h_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 6:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: h_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(h_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: h_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(h_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(h_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(h_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
+<div data-bind="if: i_detected() === 1" class="dashboardGridItem dashboard_threeQuarterGauge" data-bind="css: gaugesCentreInGrid('fan')">
+ <h4>Channel 7:</h4>
+       <img class="dashboardIcon" title="{{ _('Sensor temp (target temp)') }}"
+          src="plugin/emc2101/static/img/temp-icon.png">
+          <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          <text class="dashboardGauge" font-size="30" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Temperature') }}" data-bind="html: i_temp()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTempOffset(i_temp()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="65%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('°C') }}</text>
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Temperature') }}</text>
+        </svg>
+        <img class="dashboardIcon" title="{{ _('Fan Speed') }}" src="plugin/emc2101/static/img/fan-icon.png">
+        <svg xmlns="http://www.w3.org/2000/svg" height="140" width="140"
+          data-bind="attr: {'viewBox': tempGaugeViewBox()}">
+          
+          <text class="dashboardGauge" font-size="30" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Speed') }}" data-bind="html: i_fanspeed()"></text>
+          <path class="bg" stroke="#ccc" fill="none" data-bind="attr: { 'd': tempGaugeSvgPath() }" />
+          <path class="dashboardGauge" stroke="#09c" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatFanOffset(i_fanspeed()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+
+          <path class="dashboard_threeQuarterGauge_target" stroke="black" fill="none"
+            data-bind="attr: { 'stroke-dashoffset': formatTargetOffset(i_target()), 'd': tempGaugeSvgPath(), 'stroke-dasharray': tempGaugePathLen() }" />
+         
+           <text class="dashboardGauge" font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('RPM') }}</text>
+            <text class="dashboardGauge" font-size="30" x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c" title="{{ _('Fan Power') }}" data-bind="html: formatFanText(i_target())"></text>
+         
+          <text class="dashboardGauge" font-size="20" x="50%" y="85%" dominant-baseline="middle" text-anchor="middle"
+            fill="#08c">{{ _('Fan Data') }}</text>
+        </svg>
+</div>
+
+
+
