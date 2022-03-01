@@ -13,6 +13,26 @@ $(function() {
         // self.settingsViewModel = parameters[1];
         self.emc2101Model = parameters[0];
   
+        self.a_name = ko.observable("");
+        self.b_name = ko.observable("");
+        self.c_name = ko.observable("");
+        self.d_name = ko.observable("");
+        self.e_name = ko.observable("");
+        self.f_name = ko.observable("");
+        self.g_name = ko.observable("");
+        self.h_name = ko.observable("");
+        self.i_name = ko.observable("");
+        
+        self.a_topspeed = ko.observable("");
+        self.b_topspeed = ko.observable("");
+        self.c_topspeed = ko.observable("");
+        self.d_topspeed = ko.observable("");
+        self.e_topspeed = ko.observable("");
+        self.f_topspeed = ko.observable("");
+        self.g_topspeed = ko.observable("");
+        self.h_topspeed = ko.observable("");
+        self.i_topspeed = ko.observable("");
+
         self.a_detected = ko.observable("0");
         self.a_temp = ko.observable("0");
         self.a_fanspeed = ko.observable("0");
@@ -114,10 +134,10 @@ $(function() {
         self.tempGaugePathLen = ko.computed(() => {
             return (self.tempGaugeRadius() * Math.PI * self.tempGaugeAngle() / 180).toFixed(2);
         });
-        self.formatFanOffset = function (fanSpeedR) {
+        self.formatFanOffset = function (fanSpeedR,topSpeed) {
             // Fans operate ususally from 600RPM to around 1900 RPM
             fanSpeed=parseFloat(fanSpeedR); // This gives an RPM.
-            fanSpeed=fanSpeed/20; // Closer to a percentage
+            fanSpeed=fanSpeed*100/topSpeed; // Closer to a percentage
             if(fanSpeed>100)fanSpeed=100;
             if(fanSpeed<1)fanSpeed=1;
             if (fanSpeed && !isNaN(fanSpeed)) {
@@ -170,6 +190,27 @@ $(function() {
                 return;
             };
 
+            if (data.a_name)self.a_name(data.a_name);
+            if (data.b_name)self.b_name(data.b_name);
+            if (data.c_name)self.c_name(data.c_name);
+            if (data.d_name)self.d_name(data.d_name);
+            if (data.e_name)self.e_name(data.e_name);
+            if (data.f_name)self.f_name(data.f_name);
+            if (data.g_name)self.g_name(data.g_name);
+            if (data.h_name)self.h_name(data.h_name);
+            if (data.i_name)self.i_name(data.i_name);
+
+            if (data.a_topspeed)self.a_topspeed(data.a_topspeed);
+            if (data.b_topspeed)self.b_topspeed(data.b_topspeed);
+            if (data.c_topspeed)self.c_topspeed(data.c_topspeed);
+            if (data.d_topspeed)self.d_topspeed(data.d_topspeed);
+            if (data.e_topspeed)self.e_topspeed(data.e_topspeed);
+            if (data.f_topspeed)self.f_topspeed(data.f_topspeed);
+            if (data.g_topspeed)self.g_topspeed(data.g_topspeed);
+            if (data.h_topspeed)self.h_topspeed(data.h_topspeed);
+            if (data.i_topspeed)self.i_topspeed(data.i_topspeed);
+
+            
             if (data.a_detected)self.a_detected(data.a_detected);
             if (data.a_temp)self.a_temp(data.a_temp);
             if (data.a_fanspeed)self.a_fanspeed(data.a_fanspeed);

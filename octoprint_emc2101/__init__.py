@@ -38,46 +38,65 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         a_high_temp = 27.0
         a_low_fan = 20
         a_high_fan = 100
+        a_name = "Default"
+        a_topspeed= 1900
         
         b_low_temp = 23.0       # Fan B is the tca9548a channel 0 i2c appearance of an EMC2101
         b_high_temp = 27.0
         b_low_fan = 20
         b_high_fan = 100
+        b_name = "Channel 0"
+        b_topspeed= 1900
+        
         
         c_low_temp = 23.0       # Fan C is the tca9548a channel 1 i2c appearance of an EMC2101
         c_high_temp = 27.0
         c_low_fan = 20
         c_high_fan = 100
+        c_name = "Channel 1"
+        c_topspeed= 1900
         
         d_low_temp = 23.0       # Fan D is the tca9548a channel 2 i2c appearance of an EMC2101
         d_high_temp = 27.0
         d_low_fan = 20
         d_high_fan = 100
-        
+        d_name = "Channel 2"
+        d_topspeed= 1900
+
         e_low_temp = 23.0
         e_high_temp = 27.0
         e_low_fan = 20
         e_high_fan = 100
+        e_name="Channel 3"
+        e_topspeed= 1900
         
         f_low_temp = 23.0
         f_high_temp = 27.0
         f_low_fan = 20
         f_high_fan = 100
+        f_name="Channel 4"
+        f_topspeed= 1900
         
         g_low_temp = 23.0
         g_high_temp = 27.0
         g_low_fan = 20
         g_high_fan = 100
+        g_name="Channel 5"
+        g_topspeed= 1900
         
         h_low_temp = 23.0
         h_high_temp = 27.0
         h_low_fan = 20
         h_high_fan = 100
+        h_name="Channel 6"
+        h_topspeed= 1900
         
         i_low_temp = 23.0
         i_high_temp = 27.0
         i_low_fan = 20
         i_high_fan = 100
+        i_name="Channel 7"
+        i_topspeed= 1900
         
         return dict(
             a_low_fan=a_low_fan, a_high_fan=a_high_fan,a_low_temp=a_low_temp, a_high_temp=a_high_temp,
@@ -88,7 +107,10 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
             f_low_fan=f_low_fan, f_high_fan=f_high_fan,f_low_temp=f_low_temp, f_high_temp=f_high_temp,
             g_low_fan=g_low_fan, g_high_fan=g_high_fan,g_low_temp=g_low_temp, g_high_temp=g_high_temp,
             h_low_fan=h_low_fan, h_high_fan=h_high_fan,h_low_temp=h_low_temp, h_high_temp=h_high_temp,
-            i_low_fan=i_low_fan, i_high_fan=i_high_fan,i_low_temp=i_low_temp, i_high_temp=i_high_temp
+            i_low_fan=i_low_fan, i_high_fan=i_high_fan,i_low_temp=i_low_temp, i_high_temp=i_high_temp,
+            a_name=a_name,b_name=b_name,c_name=c_name,d_name=d_name,e_name=e_name,f_name=f_name,g_name=g_name,h_name=h_name,i_name=i_name,
+            a_topspeed=a_topspeed,b_topspeed=b_topspeed,c_topspeed=c_topspeed,d_topspeed=d_topspeed,e_topspeed=e_topspeed,
+            f_topspeed=f_topspeed,g_topspeed=g_topspeed,h_topspeed=h_topspeed,i_topspeed=i_topspeed,
         )
         
     def on_after_startup(self):
@@ -164,6 +186,24 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
             temp, fans = self.write_emc2101(sensor,calculated_speed)
         self._plugin_manager.send_plugin_message(self._identifier,
                                                  dict(
+                                                     a_name=self._settings.get(["a_name"]),
+                                                     b_name=self._settings.get(["b_name"]),
+                                                     c_name=self._settings.get(["c_name"]),
+                                                     d_name=self._settings.get(["d_name"]),
+                                                     e_name=self._settings.get(["e_name"]),
+                                                     f_name=self._settings.get(["f_name"]),
+                                                     g_name=self._settings.get(["g_name"]),
+                                                     h_name=self._settings.get(["h_name"]),
+                                                     i_name=self._settings.get(["i_name"]),
+                                                     a_topspeed=self._settings.get(["a_topspeed"]),
+                                                     b_topspeed=self._settings.get(["b_topspeed"]),
+                                                     c_topspeed=self._settings.get(["c_topspeed"]),
+                                                     d_topspeed=self._settings.get(["d_topspeed"]),
+                                                     e_topspeed=self._settings.get(["e_topspeed"]),
+                                                     f_topspeed=self._settings.get(["f_topspeed"]),
+                                                     g_topspeed=self._settings.get(["g_topspeed"]),
+                                                     h_topspeed=self._settings.get(["h_topspeed"]),
+                                                     i_topspeed=self._settings.get(["i_topspeed"]),
                                                      a_detected=self.detecteds[0],
                                                      a_temp=self.temperatures[0],
                                                      a_fanspeed=self.fanspeeds[0],
@@ -408,7 +448,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
-__plugin_name__ = "EMC2101 Fan Control"
+__plugin_name__ = "Fan Control (EMC2101)"
 
 # Starting with OctoPrint 1.4.0 OctoPrint will also support to run under Python 3 in addition to the deprecated
 # Python 2. New plugins should make sure to run under both versions for now. Uncomment one of the following
