@@ -40,6 +40,9 @@ The internal temperature sensor is accturate to 1 degree but does not report bac
 
 The board's DN and DP are for the diode Negative and Positive terminals respectively. You can find detail on what diodes to use and their accuracy on the 2101 site here: https://www.microchip.com/en-us/product/EMC2101#document-table
 
+![adafruit_products_image-2](https://user-images.githubusercontent.com/942556/156385413-2f590e8b-5562-4ff7-904a-1fd2e1a2f65a.png)
+
+
 ## Setup
 
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
