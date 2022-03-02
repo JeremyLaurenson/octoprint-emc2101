@@ -31,6 +31,8 @@ Fan Power connections:
 
 ## Multi Fan Hardware
 
+*It is very important to wire up the MUX and Controllers exactly as shown. When I tried to dasiy chain and that sort of thing, it did not work.*
+
 This plugin controls up to 8 Adafruit EMC2101 boards: https://www.adafruit.com/product/4808
 using a SparkFun or Adafruit TCA9548A Mux: https://www.adafruit.com/product/4704
 
