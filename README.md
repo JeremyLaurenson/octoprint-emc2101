@@ -34,6 +34,8 @@ Fan Power connections:
 This plugin controls up to 8 Adafruit EMC2101 boards: https://www.adafruit.com/product/4808
 using a SparkFun or Adafruit TCA9548A Mux: https://www.adafruit.com/product/4704
 
+<img width="1441" alt="complex" src="https://user-images.githubusercontent.com/942556/156375979-ad8ebc42-c544-4533-b826-59aba207b0a5.png">
+
 
 ## Setup
 
