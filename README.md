@@ -48,4 +48,14 @@ or manually using this URL:
 
 ## Configuration
 
+Each EMC2101 reports back temperature and fan speed, and can be set to whatever power you need.
+
+
+<img width="445" alt="Screen Shot 2022-03-02 at 9 11 16 AM" src="https://user-images.githubusercontent.com/942556/156377836-94a77d7a-f8d4-4e86-99a7-67c4564bc5c1.png">
+
+
+## Tab View
+
+<img width="637" alt="Screen Shot 2022-03-02 at 9 12 41 AM" src="https://user-images.githubusercontent.com/942556/156378092-0074fa3b-1d5d-4f73-80a9-2c546e1ceedd.png">
+
 
