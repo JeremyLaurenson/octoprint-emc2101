@@ -219,8 +219,12 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                     calculated_speed = int(((temp - low_temp) * (high_fan - low_fan) * -1 / (low_temp - high_temp)) + low_fan)
             except:
                 calculated_speed = 0
+            if(calculated_speed<low_fan):
+                calculated_speed=low_fan
             if calculated_speed>100:
                 calculated_speed=100
+            if calculated_speed<0:
+                calculated_speed=0
             self.targets[int(sensor)]=calculated_speed
             if self.isDebugging:
                 self._logger.info("Calculated fan speed is %d" % calculated_speed)
