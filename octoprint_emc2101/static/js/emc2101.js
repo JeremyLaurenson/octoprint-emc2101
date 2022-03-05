@@ -172,7 +172,24 @@ $(function() {
 
             return `M${innerX} ${innerY}l${outerX} ${outerY}`;
         };
-        self.tempGaugeTickTextX = (tick) => {
+        self.tempGaugeLowTickTextX = (low,high) => {
+            offset=2;
+            lotemp=parseFloat(low);
+            hitemp=parseFloat(high);
+            ticktemp=parseFloat(low);
+            if(lotemp>hitemp){
+                hitemp=parseFloat(low);
+                lotemp=parseFloat(high);
+                ticktemp=parseFloat(high);
+
+            }
+            hitemp=hitemp+offset;
+            lotemp=lotemp-offset;
+            ranget=hitemp-lotemp;
+
+            tick=(ticktemp-lotemp)/ranget;
+            
+
             a = Math.PI / 180 * (0.5 * (360 - self.tempGaugeAngle()) + self.tempGaugeAngle() * tick);
             offset = self.tempGaugeOffset();
             radius = self.tempGaugeRadius();
@@ -183,7 +200,80 @@ $(function() {
             return textX;
         };
 
-        self.tempGaugeTickTextY = (tick) => {
+        self.tempGaugeLowTickTextY = (low,high) => {
+            offset=2;
+            lotemp=parseFloat(low);
+            hitemp=parseFloat(high);
+            ticktemp=parseFloat(low);
+            if(lotemp>hitemp){
+                hitemp=parseFloat(low);
+                lotemp=parseFloat(high);
+                ticktemp=parseFloat(high);
+
+            }
+            hitemp=hitemp+offset;
+            lotemp=lotemp-offset;
+            ranget=hitemp-lotemp;
+
+            tick=(ticktemp-lotemp)/ranget;
+            
+            
+            a = Math.PI / 180 * (0.5 * (360 - self.tempGaugeAngle()) + self.tempGaugeAngle() * tick);
+            offset = self.tempGaugeOffset();
+            radius = self.tempGaugeRadius();
+            textOutset = 35;
+
+            textY = (offset + radius + (radius + textOutset) * Math.cos(a)).toFixed(2);
+
+            return textY;
+        };
+
+        self.tempGaugeHighTickTextX = (low,high) => {
+            offset=2;
+            lotemp=parseFloat(low);
+            hitemp=parseFloat(high);
+            ticktemp=parseFloat(high);
+            if(lotemp>hitemp){
+                hitemp=parseFloat(low);
+                lotemp=parseFloat(high);
+                ticktemp=parseFloat(low);
+
+            }
+            hitemp=hitemp+offset;
+            lotemp=lotemp-offset;
+            ranget=hitemp-lotemp;
+
+            tick=(ticktemp-lotemp)/ranget;
+            
+
+            a = Math.PI / 180 * (0.5 * (360 - self.tempGaugeAngle()) + self.tempGaugeAngle() * tick);
+            offset = self.tempGaugeOffset();
+            radius = self.tempGaugeRadius();
+            textOutset = 35;
+
+            textX = (radius - (radius + textOutset) * Math.sin(a) + offset).toFixed(2);
+
+            return textX;
+        };
+
+        self.tempGaugeHighTickTextY = (low,high) => {
+            offset=2;
+            lotemp=parseFloat(low);
+            hitemp=parseFloat(high);
+            ticktemp=parseFloat(high);
+            if(lotemp>hitemp){
+                hitemp=parseFloat(low);
+                lotemp=parseFloat(high);
+                ticktemp=parseFloat(low);
+
+            }
+            hitemp=hitemp+offset;
+            lotemp=lotemp-offset;
+            ranget=hitemp-lotemp;
+
+            tick=(ticktemp-lotemp)/ranget;
+            
+            
             a = Math.PI / 180 * (0.5 * (360 - self.tempGaugeAngle()) + self.tempGaugeAngle() * tick);
             offset = self.tempGaugeOffset();
             radius = self.tempGaugeRadius();
@@ -210,6 +300,15 @@ $(function() {
                 return "Off";
             return Number.parseFloat(fanSpeed).toFixed(1) + "%";
         }
+        
+        self.formatFanSpeedText = function (fanSpeed) {
+            if (isNaN(fanSpeed))
+                return "Off";
+            if (fanSpeed <100)
+                return "Off";
+            return Number.parseFloat(fanSpeed).toFixed(0);
+        }
+        
         self.tempGaugePathLen = ko.computed(() => {
             return (self.tempGaugeRadius() * Math.PI * self.tempGaugeAngle() / 180).toFixed(2);
         });
@@ -218,10 +317,10 @@ $(function() {
             fanSpeed=parseFloat(fanSpeedR); // This gives an RPM.
             fanSpeed=fanSpeed*100/topSpeed; // Closer to a percentage
             if(fanSpeed>100)fanSpeed=100;
-            if(fanSpeed<1)fanSpeed=1;
+            if(fanSpeed<0)fanSpeed=0;
             if (fanSpeed && !isNaN(fanSpeed)) {
                 return (self.tempGaugePathLen() * (1 - fanSpeed / 100)).toFixed(2);
-            } else return (self.tempGaugePathLen() * 0.01);
+            } else return (self.tempGaugePathLen() * 0.001);
         };
         self.formatTempOffset = function (tempR) {
             temp=parseFloat(tempR); // This gives an RPM.
@@ -230,7 +329,7 @@ $(function() {
             if(temp<0)temp=0;
             if (temp && !isNaN(temp)) {
                 return (self.tempGaugePathLen() * (1 - temp / 100)).toFixed(2);
-            } else return (self.tempGaugePathLen() * 0.01);
+            } else return (self.tempGaugePathLen() * 0.001);
         };
         self.formatDetailedTempOffset = function (tempR,tempLow,tempHigh) {
             offset=2;
