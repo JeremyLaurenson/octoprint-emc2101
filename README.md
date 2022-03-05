@@ -40,7 +40,7 @@ using a SparkFun or Adafruit TCA9548A Mux: https://www.adafruit.com/product/4704
 
 The internal temperature sensor is accturate to 1 degree but does not report back any finer detail than 1 degree. You may want to use an external temperature sensor diode if you want to make this more accurate or place the temp sensor exactly where you want it.
 
-The board's DN and DP are for the diode Negative and Positive terminals respectively. Using a 2n2304 Transistor connected you can get more than just the one degree steps from the 2101 as shown below. You can find detail on what diodes to use and their accuracy on the 2101 site here: https://www.microchip.com/en-us/product/EMC2101#document-table
+The board's DN and DP are for the diode Negative and Positive terminals respectively. Using a 2n3904 Transistor connected you can get more than just the one degree steps from the 2101 as shown below. You can find detail on what diodes to use and their accuracy on the 2101 site here: https://www.microchip.com/en-us/product/EMC2101#document-table
 ![IMG_5148](https://user-images.githubusercontent.com/942556/156886487-61b599d4-0292-47cd-8a91-a2482b7a3715.JPG)
 
 
