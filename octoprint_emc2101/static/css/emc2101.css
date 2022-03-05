@@ -1,1 +1,659 @@
 /* TODO: Have your plugin's CSS files generated to here. */
+/*
+ * OctoPrint-Dashboard
+ *
+ * Authors: Jefferey Neuffer (https://github.com/j7126), Will MacCormack (https://github.com/willmac16), Stefan Cohen (https://github.com/StefanCohen)
+ * 
+ * Copyright (C) 2021
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+.dashboardGridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0px;
+}
+
+.dashboardGridItem * {
+    border: 0px solid rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    font-size: 20px;
+    text-align: left;
+    vertical-align: middle;
+    padding-right: 0;
+}
+
+.dashboardGridItem.centreInGrid2 {
+    position: relative;
+    left: 50%;
+}
+
+.dashboardGridItem.centreInGrid1 {
+    position: relative;
+    left: 100%;
+}
+
+.dashboardGridItem.thumbnailContainer {
+    display: grid;
+}
+
+#dashboard_print_thumbnail {
+    margin: auto;
+    float: unset;
+    width: 50%;
+}
+
+.progressContainer div {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.dashboardIcon {
+    width: auto;
+    height: 40px;
+    filter: contrast(0%);
+    vertical-align: middle;
+    padding: 3px;
+}
+
+#dashboard_fullScreenIcon {
+    width: auto;
+    height: 15px;
+    float: right;
+    -webkit-user-drag: none;
+}
+
+#dashboard_fullWindowIcon {
+    width: auto;
+    height: 15px;
+    float: right;
+    -webkit-user-drag: none;
+}
+
+#dashboard_toggleWebcamIcon {
+    width: auto;
+    height: 15px;
+    float: right;
+}
+
+#dashboard_webcam_toggle .cameraStreamIcon {
+    width: auto;
+    height: 15px;
+    float: left;
+    padding: 3px;
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+}
+
+#dashboard_webcam_toggle .cameraStreamIcon:hover {
+    opacity: 1;
+}
+
+.dashboardButton {
+    width: 95%;
+}
+
+.dashboardSmall {
+    color: #08c;
+    font-size: 15px;
+    padding: 0;
+}
+
+.dashboardLarge {
+    color: #08c;
+    font-size: 25px;
+}
+
+.dashboardProgressContainer {
+    .u-absoluteCenter();
+    .u-flexCenter();
+}
+
+.dashboardLayerProgressContainer {
+    margin-left: 20px;
+}
+
+.dashboardProgressInline {
+    display: inline;
+}
+
+.dashboardGauge {
+    stroke: #08c;
+}
+
+div.inline {
+    display: inline-block;
+}
+
+.dashboard_threeQuarterGauge>svg>path.dashboardTempTick {
+    stroke-width: 2px;
+}
+
+.dashboard_threeQuarterGauge>svg>path.dashboard_threeQuarterGauge_target {
+    will-change: auto;
+    stroke-width: 5px;
+    stroke-opacity: 0.7;
+    stroke-miterlimit: round;
+    transition: stroke-dashoffset 850ms ease-in-out;
+}
+
+.dashboard_threeQuarterGauge>svg>path {
+    will-change: auto;
+    stroke-width: 20px;
+    stroke-miterlimit: round;
+    shape-rendering: auto;
+    transition: stroke-dashoffset 500ms ease-in-out;
+}
+
+.dashboardFeedrate>svg>path {
+    will-change: auto;
+    stroke-miterlimit: round;
+    shape-rendering: auto;
+    transition: stroke-dashoffset 500ms ease-in-out;
+    stroke-width: unset;
+}
+
+#dashboardFeedrateAvg {
+    stroke: black;
+}
+
+.dashboard_threeQuarterGauge>svg>text {
+    font-family: sans-serif;
+    fill: #08c;
+}
+
+.dashboardProgressBar>svg>path {
+    will-change: auto;
+    stroke-width: 20px;
+    stroke-miterlimit: round;
+    shape-rendering: auto;
+    transition: stroke-dashoffset 500ms ease-in-out;
+}
+
+/*Chart*/
+
+.ct-chart {
+    padding: 0px;
+    padding-top: 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.ct-series-a .ct-line {
+    stroke: #08c;
+    stroke-width: 3px;
+}
+
+.ct-labels span {
+    color: steelblue;
+}
+
+.ct-grids line {
+    color: steelblue;
+}
+
+.ct-series-a .ct-area {
+    fill: steelblue;
+}
+
+.ct-grid {
+    stroke: steelblue;
+}
+
+.ct-horizontal {
+    stroke: steelblue;
+}
+
+.dashboardSettingsWidgetsRow {
+    margin-top: 5px;
+}
+
+/* Webcam */
+
+#dashboard_webcam_container #dashboard_webcam_rotator {
+    position: relative;
+    width: 100%;
+    pointer-events: none
+}
+
+#dashboard_webcam_container .webcam_unrotated .webcam_fixed_ratio.ratio43 {
+    padding-bottom: 75%
+}
+
+#dashboard_webcam_container .webcam_unrotated .webcam_fixed_ratio.ratio169 {
+    padding-bottom: 56.25%
+}
+
+#dashboard_webcam_container .webcam_rotated .webcam_fixed_ratio.ratio43 {
+    padding-bottom: 133.3%;
+}
+
+#dashboard_webcam_container .webcam_rotated .webcam_fixed_ratio.ratio169 {
+    padding-bottom: 177.8%;
+}
+
+#dashboard_webcam_container .webcam_fixed_ratio .webcam_fixed_ratio_inner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none
+}
+
+#dashboard_webcam_container img {
+    margin: auto;
+    display: block;
+}
+
+#dashboard_webcam_container .webcam_unrotated .ratio43 img {
+    width: 100%;
+    height: auto;
+}
+
+#dashboard_webcam_container .webcam_unrotated .ratio169 img {
+    width: auto;
+    height: 100%;
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio169 img {
+    width: auto;
+    height: 100%;
+    max-width: unset;
+    transform: translateX(-50%) rotate(-90deg) scale(0.5625);
+    position: relative;
+    left: 50%;
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio43 img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg) scale(1.333);
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio169 img.flipV {
+    transform: translateX(-50%) rotate(-90deg) scaleY(-0.5625) scaleX(0.5625);
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio43 img.flipV {
+    transform: translateY(-50%) rotate(-90deg) scaleY(-1.333) scaleX(1.333);
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio169 img.flipH {
+    transform: translateX(-50%) rotate(-90deg) scaleY(0.5625) scaleX(-0.5625);
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio43 img.flipH {
+    transform: translateY(-50%) rotate(-90deg) scaleY(1.333) scaleX(-1.333);
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio169 img.flipH.flipV {
+    transform: translateX(-50%) rotate(-90deg) scaleY(-0.5625) scaleX(-0.5625);
+}
+
+#dashboard_webcam_container .webcam_rotated .ratio43 img.flipH.flipV {
+    transform: translateY(-50%) rotate(-90deg) scaleY(-1.333) scaleX(-1.333);
+}
+
+#dashboard_webcam_container .btn {
+    float: right;
+    margin-right: 5px;
+    color: #494949 !important;
+    /*text-transform: uppercase;*/
+    /*text-decoration: none;*/
+    background-color: #ffffff;
+    background: #ffffff;
+    /*padding: 0px;*/
+    border: none;
+    /*4px solid #494949 !important;*/
+    outline: none;
+    /*display: inline-block;*/
+    transition: all 0.4s ease 0s;
+}
+
+#dashboard_webcam_container .btn:hover {
+    color: #ffffff !important;
+    /*background: gray;  #f6b93b;*/
+    border-color: gray;
+    /*#f6b93b !important;*/
+    transition: all 0.4s ease 0s;
+}
+
+.dashboard-full .webcam_rotated .webcam_fixed_ratio.ratio169 {
+    padding-bottom: 0px!important;
+    max-width: 100%;
+    max-height: 100%;
+    height: calc(100vh - 4vmin);
+    width: calc((100vh - 4vmin) * 0.5625);
+    margin: auto;
+    position: relative;
+}
+
+.dashboard-full .webcam_rotated .webcam_fixed_ratio.ratio43 {
+    padding-bottom: 0px!important;
+    max-width: 100%;
+    max-height: 100%;
+    height: calc(100vh - 4vmin);
+    width: calc((100vh - 4vmin) * 0.75);
+    margin: auto;
+    position: relative;
+}
+
+.dashboard-full .webcam_unrotated .webcam_fixed_ratio.ratio169 {
+    width: var(--dashboard_full_webcam_width);
+    height: calc(var(--dashboard_full_webcam_width) * 0.5625);
+    padding-bottom: 0px!important;
+    margin-top: calc((100vh - 4vmin) / 2 - (var(--dashboard_full_webcam_width) * 0.5625) / 2);
+}
+
+.dashboard-full .webcam_unrotated .webcam_fixed_ratio.ratio43 {
+    width: var(--dashboard_full_webcam_width);
+    height: calc(var(--dashboard_full_webcam_width) * 0.75);
+    padding-bottom: 0px!important;
+    margin-top: calc((100vh - 4vmin) / 2 - (var(--dashboard_full_webcam_width) * 0.75) / 2);
+}
+
+.dashboard-full.dashboardOverlayFull .webcam_unrotated .webcam_fixed_ratio.ratio43 {
+    height: 100vh;
+    width: calc(100vh * 1.33);
+    padding-bottom: 0px!important;
+    position: relative;
+    margin: auto;
+}
+
+/* Small Screens */
+
+@media (max-width: 700px) {
+    #touch .dashboardGridItem {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: solid 1px grey!important;
+    }
+    #touch .dashboardGridItem>span::before {
+        content: "\A";
+        white-space: pre;
+    }
+    #touch .dashboardGridItem>div.inline {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+#touch input#dashboard_fullScreenIcon, #touch input#dashboard_fullWindowIcon, #touch input#dashboard_toggleWebcamIcon {
+    height: 18px!important;
+    background: none!important;
+    color: white!important;
+    opacity: 1!important;
+}
+
+/* FullScreen.*/
+
+.dashboard-full #dashboard_fullScreenIcon {
+    height: 2.1vmin;
+    position: sticky;
+    top: 0;
+}
+
+.dashboard-full #dashboard_fullWindowIcon {
+    height: 2.1vmin;
+    position: sticky;
+    top: 0;
+}
+
+.dashboard-full #dashboard_toggleWebcamIcon {
+    height: 2.1vmin;
+    position: sticky;
+    top: 0;
+}
+
+.dashboard-full .cameraStreamIcon {
+    height: 2.1vmin;
+    padding: 0.4vmin;
+}
+
+.dashboard-full .dashboardIcon {
+    padding: 0.4vmin;
+}
+
+.dashboard-full .dashboardProgressContainer svg text.dashboardGauge.dashboardGaugeValue {
+    font-size: 180%;
+}
+
+.dashboard-full .dashboardProgressContainer svg text.dashboardGauge.dashboardGaugeName {
+    font-size: 100%;
+}
+
+.dashboard-full .dashboardIcon {
+    height: 3vmin;
+    width: auto;
+}
+
+.dashboard-full .dashboardGridItem.printerMessage {
+    margin-bottom: -3vmin;
+    position: relative;
+    bottom: 4vmin;
+}
+
+.dashboard-full .progressContainer {
+    width: 100%;
+    height: fit-content;
+}
+
+.dashboard-full .dashboardProgressContainer svg {
+    width: 13vmin;
+    height: 13vmin;
+}
+
+.dashboard-full svg {
+    width: 9vw;
+    height: 13vh;
+}
+
+.dashboard-full .dashboardGridItem * {
+    font-size: 2.6vmin;
+    line-height: 2.6vmin;
+    padding: 0.6vmin;
+}
+
+.dashboard-full .dashboardGridItem svg text {
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.dashboard-full .ct-label {
+    font-size: 1.6vmin;
+    position: relative;
+    bottom: 0.6vmin;
+}
+
+.dashboardContainer.dashboard-full {
+    --dashboard_full_content_width: 40vw;
+    --dashboard_full_webcam_width: 60vw;
+    color: #dadadc!important;
+    font-weight: 400;
+    background-color: #000000;
+    user-select: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100000;
+    margin-top: 0!important;
+}
+
+.dashboardContainer.dashboard-full.dashboard_full_ratio43_rotated {
+    --dashboard_full_content_width: calc(100vw - (100vh - 4vmin) * 0.75);
+    --dashboard_full_webcam_width: calc((100vh - 4vmin) * 0.75);
+}
+
+.dashboardContainer.dashboard-full.dashboard_full_ratio169_rotated {
+    --dashboard_full_content_width: calc(100vw - (100vh - 4vmin) * 0.5625);
+    --dashboard_full_webcam_width: calc((100vh - 4vmin) * 0.5625);
+}
+
+.dashboardContainer.dashboard-full .dashboardGridItem {
+    text-align: center;
+    margin-bottom: 1vmin;
+    padding-bottom: 0px;
+    font-size: 2.6vmin;
+    line-height: 2.6vmin;
+}
+
+.dashboardContainer.dashboard-full #dashboardFsContainer_webcam_true .dashboardGridItem>span::before {
+    content: "\A";
+    white-space: pre;
+}
+
+.dashboardContainer.dashboard-full #dashboardFsContainer_webcam_true .dashboardGridItem.dashboardProgressBar>span::before {
+    display: none;
+}
+
+.dashboardContainer.dashboard-full .dashboardGridItem>div.inline {
+    text-align: center;
+}
+
+.dashboardContainer.dashboard-full #dashboardFsContainer_webcam_true .dashboardGridItem>div.inline {
+    display: block;
+}
+
+.dashboardContainer.dashboard-full .dashboardFsContainer {
+    position: fixed;
+    left: 2vmin;
+    right: calc(var(--dashboard_full_webcam_width) + 4vmin);
+    width: calc(var(--dashboard_full_content_width) - 6vmin);
+    max-height: calc(100vh - 4vmin);
+    margin: 0px;
+    overflow: hidden;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2vmin 0px;
+}
+
+.dashboardContainer.dashboard-full.dashboardOverlayFull .dashboardFsContainer {
+    right: 2vmin;
+    left: calc(60vw + 4vmin);
+    width: calc(40vw - 6vmin);
+    z-index: 100;
+    background: #00000074;
+    transform: scale(0.8);
+    transform-origin: right top;
+    border-radius: 20px;
+    top: 0;
+}
+
+.dashboardContainer.dashboard-full div#dashboard_webcam_container {
+    position: fixed;
+    width: calc(var(--dashboard_full_webcam_width) - 2vmin);
+    height: calc(100% - 4vmin);
+    right: 2vmin;
+    top: 2vmin;
+    bottom: 2vmin;
+}
+
+.dashboardContainer.dashboard-full.dashboardOverlayFull div#dashboard_webcam_container {
+    --dashboard_full_webcam_width: 100vw;
+}
+
+.dashboardContainer.dashboard-full .dashboardFsContainer#dashboardFsContainer_webcam_false {
+    width: calc(100vw - 6vmin);
+    right: 2vmin;
+    left: 2vmin;
+    top: 2vmin;
+    transform: unset;
+    z-index: 100000;
+}
+
+.dashboardContainer.dashboard-full .dashboardFsContainer .dashboardProgressContainer {
+    text-align: center;
+}
+
+.dashboardFullLoader {
+    position: fixed;
+    background-color: #000000;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding-top: 40vh;
+}
+
+body:fullscreen .ui-pnotify {
+    display: none;
+}
+
+.dashboard-full .dashboardProgressContainer.dashboardProgressInline {
+    margin: 0.5vmin;
+}
+
+.dashboardProgressContainer.dashboardProgressInline {
+    margin: 4px;
+}
+
+.dashboardContainer.dashboard-full .dashboardGridItem.printerMessage {
+    margin-bottom: 0px!important;
+}
+
+.dashboard-full .printerMessage>br {
+    display: none;
+}
+
+.dashboard-full .dashboardGridItem .ct-chart * {
+    padding: 0px;
+}
+
+.dashboard-full .dashboardGridItem.printerMessage span::before {
+    content: "\A";
+    white-space: pre;
+}
+
+.dashboard-full .dashboardGridItem .dashboardSmall {
+    font-size: 1.6vmin;
+    line-height: 2.6vmin;
+    padding: 0.2vmin;
+}
+
+button.dashboardButton#job_cancel {
+    position: relative;
+    right: 0;
+    transition: width 0.5s, right 0.5s;
+    overflow: hidden;
+}
+
+button.dashboardButton#job_cancel.confirm {
+    right: 200%;
+    width: 300%;
+}
+
+button.dashboardButton#job_cancel>span>span {
+    float: right;
+    margin-right: 7px;
+}
+
+.dashboardGridItem.jobControl {
+    margin-top: 10px;
+}
+
+.dashboardGridItem span#eta {
+    padding-left: 0px;
+}

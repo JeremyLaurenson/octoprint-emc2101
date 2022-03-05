@@ -1,52 +1,331 @@
-<form class="form-horizontal">
-    <div class="control-group">
-        <label class="control-label">{{ _('Target Temperature') }}</label>
+<h4>{{ _('Adafruit EMC2101') }}</h4>
+</p><form class="form-horizontal">
+<div class="control-group">
+<h4>General:</h4>
+       <label class="checkbox">{{ _('Displauy temperature in Fahrenheit') }}
+                <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.use_fahrenheit">
+            </label>
+</div>
+
+<div class="control-group">
+<h4>Primary sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
         <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.targettemp">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at idle') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed0">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 1 degree over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed1">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 2 degrees over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed2">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 3 degrees over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed3">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 4 degrees over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed4">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 5 degrees over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed5">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 6 degrees over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed6">
-        </div><BR>
-        <label class="control-label">{{ _(' Fan %%  at 7 degrees over') }}</label>
-        <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.fanspeed7">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.a_name">
         </div>
-        
-    </div>
-    <div class="control-group">
-        <label class="control-label">{{ _('Check interval in seconds') }}</label>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
         <div class="controls">
-            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.interval">
-        </div><BR>
-        <label class="control-label">{{ _('Minutes of data to keep in database') }}</label>
-        <div class="controls">
-            <input size="4" maxlength="4" type="text" data-bind="value: settings.plugins.emc2101.minutestokeep">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.a_low_temp">
         </div>
-                
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.a_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.a_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.a_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.a_topspeed">
+        </div>
+        <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.a_external">
+        </div>
     </div>
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 0 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.b_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.b_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.b_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.b_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.b_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.b_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.b_external">
+        </div>
+
+    </div>
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 1 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.c_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.c_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.c_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.c_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.c_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.c_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.c_external">
+        </div>
+
+    </div>
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 2 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.d_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.d_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.d_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.d_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.d_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.d_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.d_external">
+        </div>
+
+    </div>
+
+
+
+<div class="control-group">
+<h4><h4>I2C Mux Channel 3 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.e_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.e_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.e_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.e_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.e_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.e_topspeed">
+        </div>        <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.e_external">
+        </div>
+
+    </div>
+
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 4 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.f_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.f_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.f_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.f_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.f_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.f_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.f_external">
+        </div>
+
+    </div>
+
+
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 5 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.g_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.g_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.g_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.g_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.g_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.g_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.g_external">
+        </div>
+
+    </div>
+
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 6 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.h_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.h_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.h_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.h_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.h_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.h_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.h_external">
+        </div>
+
+    </div>
+
+
+
+
+<div class="control-group">
+<h4>I2C Mux Channel 7 Sensor:</h4>
+        <label class="control-label">{{ _('Name') }}</label>
+        <div class="controls">
+            <input size="20" maxlength="20" type="text" data-bind="value: settings.plugins.emc2101.i_name">
+        </div>
+        <label class="control-label">{{ _('Low fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.i_low_temp">
+        </div>
+        <label class="control-label">{{ _('Low fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.i_low_fan">
+        </div>
+        <label class="control-label">{{ _('High fan Temperature') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.i_high_temp">
+        </div>
+        <label class="control-label">{{ _('High fan speed') }}</label>
+        <div class="controls">
+            <input size="3" maxlength="3" type="text" data-bind="value: settings.plugins.emc2101.i_high_fan">
+        </div>
+        <label class="control-label">{{ _('Fan Max RPM') }}</label>
+        <div class="controls">
+            <input size="5" maxlength="5" type="text" data-bind="value: settings.plugins.emc2101.i_topspeed">
+        </div>
+                <label class="control-label">{{ _('Use external 2N3904') }}</label>
+        <div class="controls">
+            <input type="checkbox"
+                    data-bind="checked: settings.plugins.emc2101.i_external">
+        </div>
+
+    </div>
+
+
 </form>
