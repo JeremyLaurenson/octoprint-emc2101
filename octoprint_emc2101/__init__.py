@@ -329,7 +329,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
     def check_emc2101(self):
         if self.isDebugging:
             self._logger.info("Checking for EMC2101 sensors....")
-        if True: #try:
+        try:
             self.sensors=[]
             self.detecteds=[]
             self.fanspeeds=[]
@@ -397,11 +397,11 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
 
                 
             return
-#        except Exception as ex:
-#            print(ex)
-#            self._logger.info(
-#                "Failed to execute EMC2101 python subscript...")
-#            return (0, 0)
+        except Exception as ex:
+            print(ex)
+            self._logger.info(
+                "Failed to execute EMC2101 python subscript...")
+            return (0, 0)
 
     def read_emc2101(self,sensor,external_sensor):
         if self.isDebugging:
@@ -427,6 +427,10 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
             return (0, 0)
 
     def write_emc2101(self,sensor,speed):
+        if(speed>100):
+            speed=100
+        if(speed<0):
+            speed=0
         if self.isDebugging:
             self._logger.info("Setting EMC2101 %s fan speed to %d...." % (sensor,speed))
         if self.isDemo:
