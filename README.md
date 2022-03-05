@@ -1,6 +1,13 @@
 # OctoPrint-Emc2101
 
-This plugin allows you to control the temperature of your printer enclosure using a 4 pin PWM fan connected to an Adafruit EMC2101 fan controller/temperature sensor. This Octoprint plugin is for use with a Raspberry Pi connected to an Adafruit EMC2101 fan control board in simple mode:
+This plugin allows you to control the temperature of your printer enclosure using a 4 pin PWM fan connected to an Adafruit EMC2101 fan controller/temperature sensor.
+
+<img width="635" alt="Screen Shot 2022-03-05 at 11 08 22 AM" src="https://user-images.githubusercontent.com/942556/156891679-1196be1e-3088-4a72-9509-f33ac88fe568.png">
+<img width="476" alt="Screen Shot 2022-03-05 at 11 12 20 AM" src="https://user-images.githubusercontent.com/942556/156891685-448cf698-c571-4c6f-9850-a8cbc5a6fc48.png">
+<img width="639" alt="Screen Shot 2022-03-05 at 11 08 15 AM" src="https://user-images.githubusercontent.com/942556/156891682-f5da3b3b-6f8a-4bcc-b7db-86351d9884b5.png">
+
+
+This Octoprint plugin is for use with a Raspberry Pi connected to an Adafruit EMC2101 fan control board in simple mode:
 
 ![4808-04](https://user-images.githubusercontent.com/942556/153941335-980945da-9b34-45c7-8ad6-9cf4f0ef874e.jpg)
 
