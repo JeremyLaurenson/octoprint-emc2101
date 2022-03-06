@@ -343,9 +343,10 @@ $(function() {
             lotemp=lotemp-offset;
             
             temp=parseFloat(tempR);
+            if(temp<lotemp)temp=lotemp;
             temp=(temp-lotemp)*100/(hitemp-lotemp);
             if(temp>100)temp=100;
-            if(temp<0)temp=0;
+            if(temp<0.01)temp=0.01;
             if (temp && !isNaN(temp)) {
                 return (self.tempGaugePathLen() * (1 - temp / 100)).toFixed(2);
             } else return (self.tempGaugePathLen() * 0.01);
