@@ -8,6 +8,7 @@ import os
 from octoprint.events import Events, all_events
 from octoprint.util import RepeatedTimer
 import sys
+import threading
 from subprocess import Popen, PIPE
 
 
@@ -26,9 +27,10 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
     sensors = []  # Array of strings with I2C channel numbers passed to the py scripts
     detecteds=[]
     fanspeeds=[]
+    override=[]
     temperatures=[]
     targets=[]
-
+    cooldowntimers=[]
     isInLoop=False
 
     def getSettingVariableName(self,channel,name):
@@ -71,6 +73,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         a_high_fan = 100
         a_name = "Default"
         a_topspeed= 1900
+        a_cooldown=0
         
         b_low_temp = 23.0       # Fan B is the tca9548a channel 0 i2c appearance of an EMC2101
         b_high_temp = 27.0
@@ -78,6 +81,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         b_high_fan = 100
         b_name = "Channel 0"
         b_topspeed= 1900
+        b_cooldown=0
         
         
         c_low_temp = 23.0       # Fan C is the tca9548a channel 1 i2c appearance of an EMC2101
@@ -86,13 +90,15 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         c_high_fan = 100
         c_name = "Channel 1"
         c_topspeed= 1900
-        
+        c_cooldown=0
+
         d_low_temp = 23.0       # Fan D is the tca9548a channel 2 i2c appearance of an EMC2101
         d_high_temp = 27.0
         d_low_fan = 20
         d_high_fan = 100
         d_name = "Channel 2"
         d_topspeed= 1900
+        d_cooldown=0
 
         e_low_temp = 23.0
         e_high_temp = 27.0
@@ -100,13 +106,15 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         e_high_fan = 100
         e_name="Channel 3"
         e_topspeed= 1900
-        
+        e_cooldown=0
+
         f_low_temp = 23.0
         f_high_temp = 27.0
         f_low_fan = 20
         f_high_fan = 100
         f_name="Channel 4"
         f_topspeed= 1900
+        f_cooldown=0
         
         g_low_temp = 23.0
         g_high_temp = 27.0
@@ -114,6 +122,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         g_high_fan = 100
         g_name="Channel 5"
         g_topspeed= 1900
+        g_cooldown=0
         
         h_low_temp = 23.0
         h_high_temp = 27.0
@@ -121,13 +130,15 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
         h_high_fan = 100
         h_name="Channel 6"
         h_topspeed= 1900
-        
+        h_cooldown=0
+
         i_low_temp = 23.0
         i_high_temp = 27.0
         i_low_fan = 20
         i_high_fan = 100
         i_name="Channel 7"
         i_topspeed= 1900
+        i_cooldown=0
         
         return dict(
             use_fahrenheit=use_fahrenheit,
@@ -145,6 +156,8 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
             a_name=a_name,b_name=b_name,c_name=c_name,d_name=d_name,e_name=e_name,f_name=f_name,g_name=g_name,h_name=h_name,i_name=i_name,
             a_topspeed=a_topspeed,b_topspeed=b_topspeed,c_topspeed=c_topspeed,d_topspeed=d_topspeed,e_topspeed=e_topspeed,
             f_topspeed=f_topspeed,g_topspeed=g_topspeed,h_topspeed=h_topspeed,i_topspeed=i_topspeed,
+            a_cooldown=a_cooldown,b_cooldown=b_cooldown,c_cooldown=c_cooldown,d_cooldown=d_cooldown,
+            e_cooldown=e_cooldown,f_cooldown=f_cooldown,g_cooldown=g_cooldown,h_cooldown=h_cooldown,i_cooldown=i_cooldown,
         )
         
     def on_after_startup(self):
@@ -171,8 +184,9 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                 self._logger.info("EMC2101 loop aborted - already running")
             return
         self.isInLoop=True
-        
+        sn=-1
         for sensor in self.sensors:
+            sensorNumber=self.toint(sensor)
             if self.isDebugging:
                 self._logger.info("Reading sensor at %s", sensor)
             prefix="a"
@@ -225,6 +239,8 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                 calculated_speed=100
             if calculated_speed<0:
                 calculated_speed=0
+            if self.override[sensorNumber]>0:
+                calculated_speed=high_fan
             self.targets[int(sensor)]=calculated_speed
             if self.isDebugging:
                 self._logger.info("Calculated fan speed is %d" % calculated_speed)
@@ -339,6 +355,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
             self.fanspeeds=[]
             self.temperatures=[]
             self.targets=[]
+            self.cooldowntimers=[]
             script = os.path.dirname(os.path.realpath(__file__)) + "/EMCSCAN.py"
             cmd = [sys.executable, script]
             stdout = Popen(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True)
@@ -393,11 +410,16 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                     self.fanspeeds.append(0)
                     self.targets.append(0)
                     self.temperatures.append(0)
+                    self.cooldowntimers.append(0)
+                    self.override.append(0)
                 else:
                     self.detecteds.append(0)
                     self.fanspeeds.append(-1)
                     self.targets.append(-1)
                     self.temperatures.append(-1)
+                    self.cooldowntimers.append(0)
+                    self.override.append(0)
+
 
                 
             return
@@ -458,13 +480,28 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
 
     def on_shutdown(self):
         self._logger.info("Stopping fan monitor")
-        
+    
+    def endCooldown(self,sensorNum):
+        self._logger.info("Fan override end %d",sensorNum)
+        self.override[sensorNum]=0
+
+    def setFanOverride(self):
+        for sensorNum in range(9):
+            cooldowntime=self.tofloat(self.getSettingVariable(sensorNum,"cooldown"))
+            if(cooldowntime>0):
+                self._logger.info("Setting fan override to %d seconds" % cooldowntime)
+                self.cooldowntimers[sensorNum] = threading.Timer(cooldowntime, self.endCooldown,[sensorNum])
+                self.cooldowntimers[sensorNum].start()
+                self.override[sensorNum]=1
+
     def on_event(self,event, payload):
         if event == "PrintStarted":
-            self._logger.info("A print has started. Uploading settings to EMC2101")
+            self._logger.info("A print has started.")
         if event == "PrintFailed":
+            self.setFanOverride()
             self._logger.info("A print has failed. Resetting EMC2101")
         if event == "PrintDone":
+            self.setFanOverride()
             self._logger.info("A print is done. Resetting EMC2101")
             
     def get_settings_version(self):
