@@ -493,9 +493,16 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                 self.cooldowntimers[sensorNum] = threading.Timer(cooldowntime, self.endCooldown,[sensorNum])
                 self.cooldowntimers[sensorNum].start()
                 self.override[sensorNum]=1
+    def clearFanOverride(self):
+        for sensorNum in range(9):
+            cooldowntime=self.tofloat(self.getSettingVariable(sensorNum,"cooldown"))
+            if(cooldowntime>0):
+                self._logger.info("Clearing fan override to %d seconds" % cooldowntime)
+                self.override[sensorNum]=0
 
     def on_event(self,event, payload):
         if event == "PrintStarted":
+            self.clearFanOverride()
             self._logger.info("A print has started.")
         if event == "PrintFailed":
             self.setFanOverride()
