@@ -54,6 +54,16 @@ The board's DN and DP are for the diode Negative and Positive terminals respecti
 ![adafruit_products_image-2](https://user-images.githubusercontent.com/942556/156385413-2f590e8b-5562-4ff7-904a-1fd2e1a2f65a.png)
 
 
+## Adding Adafruit MCP9808 Precision I2C Temperature Sensor
+
+The 9808 Temperature sensor is a more accurate sensor still than the external 2101 sensor. It's accuracy is 0.25°C over -40°C to 125°C range (0.5°C guaranteed max from -20°C to 100°C)
+In order to use this sensor, simply plug it onto the 2101 as a daisy chained device, or put it in standalone if you dont need the fan speed:
+
+![adafruit_products_MCP9808_top_header](https://user-images.githubusercontent.com/942556/161259560-eb5da03f-7464-44bc-a2fd-af1fc0d59790.jpg)
+
+<img width="721" alt="Screen Shot 2022-04-01 at 8 08 19 AM" src="https://user-images.githubusercontent.com/942556/161260408-51b612e4-ddd2-49b4-a196-1afcb537a52d.png">
+
+
 ## Setup
 
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
