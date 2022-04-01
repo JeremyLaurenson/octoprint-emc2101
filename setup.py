@@ -14,7 +14,7 @@ plugin_package = "octoprint_emc2101"
 plugin_name = "OctoPrint-Emc2101"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.0.6"
+plugin_version = "0.0.7"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
@@ -33,7 +33,7 @@ plugin_url = "https://github.com/JeremyLaurenson/OctoPrint-Emc2101"
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["adafruit-circuitpython-emc2101","adafruit-circuitpython-tca9548a"]
+plugin_requires = ["adafruit-circuitpython-emc2101","adafruit-circuitpython-tca9548a","adafruit-circuitpython-mcp9808"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point

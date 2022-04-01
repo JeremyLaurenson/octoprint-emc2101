@@ -12,7 +12,7 @@ import threading
 from subprocess import Popen, PIPE
 
 
-        
+
 
 
 class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
@@ -381,7 +381,7 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                     if(self.isDemo):
                         channelstatus="2101"
 
-                    if channelstatus=="2101":
+                    if channelstatus!="Not found":
                         currentSensorFound=True
                         self._logger.info("EMC2101 crontroller number %s is connected" , channel)
                         self.sensors.append(channel)

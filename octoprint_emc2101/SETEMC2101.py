@@ -8,7 +8,10 @@ import adafruit_tca9548a
 i2c = board.I2C()  # uses board.SCL and board.SDA
 
 # Create the TCA9548A object and give it the I2C bus
-tca = adafruit_tca9548a.TCA9548A(i2c)
+try:
+	tca = adafruit_tca9548a.TCA9548A(i2c)
+except:
+	notca=True
 
 if len(sys.argv) == 3:
 	dutyCycle=int(sys.argv[2])
@@ -16,13 +19,17 @@ if len(sys.argv) == 3:
 else:
 	print('-1 | -1')
 	sys.exit(1)
-if(channel==0):
-	emc = adafruit_emc2101.EMC2101(i2c)
-else:
-	emc = adafruit_emc2101.EMC2101(tca[channel-1])
 
-emc.manual_fan_speed = dutyCycle
+try:
+	if(channel==0):
+		emc = adafruit_emc2101.EMC2101(i2c)
+	else:
+		emc = adafruit_emc2101.EMC2101(tca[channel-1])
+	emc.manual_fan_speed = dutyCycle
+	temperature = emc.internal_temperature
+	fanspeed = emc.fan_speed
+except:
+	fanspeed=0
+	temperature=0
 
-temperature = emc.internal_temperature
-fanspeed = emc.fan_speed
 print('{0:0.1f} | {1:0.1f}'.format(temperature, fanspeed))
