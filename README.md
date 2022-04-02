@@ -1,6 +1,13 @@
 # OctoPrint-Emc2101
 
-This plugin allows you to control the temperature of your printer enclosure using a 4 pin PWM fan connected to an Adafruit EMC2101 fan controller/temperature sensor.
+This plugin uses Adafruit STEMMA QT / Qwiic based boards to allow you to easily connect up to 9 temperature sensors and/or fan controllers to your Raspberry Pi in order to control  your printer enclosure with zero soldering.
+
+Raspberry Pi Hat: https://www.adafruit.com/product/5142
+Combo Fan Controller+Temp Sensors: https://www.adafruit.com/product/4808
+High Accuracy Temp Sensors: https://www.adafruit.com/product/5027
+8 Port Mux: https://www.adafruit.com/product/4704
+Cables to connect them: https://www.adafruit.com/?q=STEMMA+QT+CABLE&sort=BestMatch
+
 
 <img width="635" alt="Screen Shot 2022-03-05 at 11 08 22 AM" src="https://user-images.githubusercontent.com/942556/156891679-1196be1e-3088-4a72-9509-f33ac88fe568.png">
 <img width="503" alt="Screen Shot 2022-03-19 at 8 53 05 AM" src="https://user-images.githubusercontent.com/942556/159121896-3c51a58e-b3ab-46f2-a8f8-d976e4c07d84.png">
