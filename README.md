@@ -1,13 +1,16 @@
 # OctoPrint-Emc2101
 
-This plugin uses Adafruit STEMMA QT / Qwiic based boards to allow you to easily connect up to 9 temperature sensors and/or fan controllers to your Raspberry Pi in order to control  your printer enclosure with zero soldering.
+This plugin uses Adafruit STEMMA QT / Qwiic based boards to allow you to easily connect up to 9 temperature sensors and/or fan controllers to your Raspberry Pi in order to control  your printer enclosure with zero soldering. Note that I found the shim to not be as reliable as the HAT listed below:
 
-* Raspberry Pi Hat: https://www.adafruit.com/product/5142
+* Raspberry Pi Hat: https://www.adafruit.com/product/5142 or Shim: https://www.adafruit.com/product/4463
 * Cables to connect them: https://www.adafruit.com/?q=STEMMA+QT+CABLE&sort=BestMatch
 * Combo Fan Controller+Temp Sensors: https://www.adafruit.com/product/4808
 * High Accuracy Temp Sensors: https://www.adafruit.com/product/5027
 * 8 Port Mux: https://www.adafruit.com/product/4704
 
+Plug your HAT/Shim onto the Raspberry Pi and you get a connector that you can plug in either a fan/temp controller OR just a high accuracy temperature sensor into.
+
+If you need more than one, then use the 8 Port Mux to break out that single cable into 8 cables, each connected to a fan/temp controller AND/OR a high acuracy temperature sensor. If you have a Fan+High accuracy sensor, this plugin with "prefer" the high accuracy sensor for the temperature readings.
 
 <img width="635" alt="Screen Shot 2022-03-05 at 11 08 22 AM" src="https://user-images.githubusercontent.com/942556/156891679-1196be1e-3088-4a72-9509-f33ac88fe568.png">
 <img width="503" alt="Screen Shot 2022-03-19 at 8 53 05 AM" src="https://user-images.githubusercontent.com/942556/159121896-3c51a58e-b3ab-46f2-a8f8-d976e4c07d84.png">
