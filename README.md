@@ -8,6 +8,8 @@ This plugin uses Adafruit STEMMA QT / Qwiic based boards to allow you to easily 
 * High Accuracy Temp Sensors: https://www.adafruit.com/product/5027
 * 8 Port Mux: https://www.adafruit.com/product/4704
 
+These components can be sourced elsewhere, and so long as youre using the base chips such as the EMC2101 etc you can even use 3rd party boards.
+
 Plug your HAT/Shim onto the Raspberry Pi and you get a connector that you can plug in either a fan/temp controller OR just a high accuracy temperature sensor into.
 
 If you need more than one, then use the 8 Port Mux to break out that single cable into 8 cables, each connected to a fan/temp controller AND/OR a high acuracy temperature sensor. If you have a Fan+High accuracy sensor, this plugin with "prefer" the high accuracy sensor for the temperature readings.
