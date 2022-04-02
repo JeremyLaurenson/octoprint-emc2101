@@ -139,11 +139,11 @@ div.inline {
     display: inline-block;
 }
 
-.dashboard_threeQuarterGauge>svg>path.dashboardTempTick {
+.dashboard2101_threeQuarterGauge>svg>path.dashboardTempTick {
     stroke-width: 2px;
 }
 
-.dashboard_threeQuarterGauge>svg>path.dashboard_threeQuarterGauge_target {
+.dashboard2101_threeQuarterGauge>svg>path.dashboard2101_threeQuarterGauge_target {
     will-change: auto;
     stroke-width: 5px;
     stroke-opacity: 0.7;
@@ -151,12 +151,15 @@ div.inline {
     transition: stroke-dashoffset 850ms ease-in-out;
 }
 
-.dashboard_threeQuarterGauge>svg>path {
+.dashboard2101_threeQuarterGauge>svg>path {
     will-change: auto;
     stroke-width: 20px;
     stroke-miterlimit: round;
     shape-rendering: auto;
     transition: stroke-dashoffset 500ms ease-in-out;
+}
+.dashboard2101_threeQuarterGauge {
+    display: inline;
 }
 
 .dashboardFeedrate>svg>path {
@@ -171,7 +174,7 @@ div.inline {
     stroke: black;
 }
 
-.dashboard_threeQuarterGauge>svg>text {
+.dashboard2101_threeQuarterGauge>svg>text {
     font-family: sans-serif;
     fill: #08c;
 }
@@ -222,160 +225,7 @@ div.inline {
     margin-top: 5px;
 }
 
-/* Webcam */
 
-#dashboard_webcam_container #dashboard_webcam_rotator {
-    position: relative;
-    width: 100%;
-    pointer-events: none
-}
-
-#dashboard_webcam_container .webcam_unrotated .webcam_fixed_ratio.ratio43 {
-    padding-bottom: 75%
-}
-
-#dashboard_webcam_container .webcam_unrotated .webcam_fixed_ratio.ratio169 {
-    padding-bottom: 56.25%
-}
-
-#dashboard_webcam_container .webcam_rotated .webcam_fixed_ratio.ratio43 {
-    padding-bottom: 133.3%;
-}
-
-#dashboard_webcam_container .webcam_rotated .webcam_fixed_ratio.ratio169 {
-    padding-bottom: 177.8%;
-}
-
-#dashboard_webcam_container .webcam_fixed_ratio .webcam_fixed_ratio_inner {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none
-}
-
-#dashboard_webcam_container img {
-    margin: auto;
-    display: block;
-}
-
-#dashboard_webcam_container .webcam_unrotated .ratio43 img {
-    width: 100%;
-    height: auto;
-}
-
-#dashboard_webcam_container .webcam_unrotated .ratio169 img {
-    width: auto;
-    height: 100%;
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio169 img {
-    width: auto;
-    height: 100%;
-    max-width: unset;
-    transform: translateX(-50%) rotate(-90deg) scale(0.5625);
-    position: relative;
-    left: 50%;
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio43 img {
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg) scale(1.333);
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio169 img.flipV {
-    transform: translateX(-50%) rotate(-90deg) scaleY(-0.5625) scaleX(0.5625);
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio43 img.flipV {
-    transform: translateY(-50%) rotate(-90deg) scaleY(-1.333) scaleX(1.333);
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio169 img.flipH {
-    transform: translateX(-50%) rotate(-90deg) scaleY(0.5625) scaleX(-0.5625);
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio43 img.flipH {
-    transform: translateY(-50%) rotate(-90deg) scaleY(1.333) scaleX(-1.333);
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio169 img.flipH.flipV {
-    transform: translateX(-50%) rotate(-90deg) scaleY(-0.5625) scaleX(-0.5625);
-}
-
-#dashboard_webcam_container .webcam_rotated .ratio43 img.flipH.flipV {
-    transform: translateY(-50%) rotate(-90deg) scaleY(-1.333) scaleX(-1.333);
-}
-
-#dashboard_webcam_container .btn {
-    float: right;
-    margin-right: 5px;
-    color: #494949 !important;
-    /*text-transform: uppercase;*/
-    /*text-decoration: none;*/
-    background-color: #ffffff;
-    background: #ffffff;
-    /*padding: 0px;*/
-    border: none;
-    /*4px solid #494949 !important;*/
-    outline: none;
-    /*display: inline-block;*/
-    transition: all 0.4s ease 0s;
-}
-
-#dashboard_webcam_container .btn:hover {
-    color: #ffffff !important;
-    /*background: gray;  #f6b93b;*/
-    border-color: gray;
-    /*#f6b93b !important;*/
-    transition: all 0.4s ease 0s;
-}
-
-.dashboard-full .webcam_rotated .webcam_fixed_ratio.ratio169 {
-    padding-bottom: 0px!important;
-    max-width: 100%;
-    max-height: 100%;
-    height: calc(100vh - 4vmin);
-    width: calc((100vh - 4vmin) * 0.5625);
-    margin: auto;
-    position: relative;
-}
-
-.dashboard-full .webcam_rotated .webcam_fixed_ratio.ratio43 {
-    padding-bottom: 0px!important;
-    max-width: 100%;
-    max-height: 100%;
-    height: calc(100vh - 4vmin);
-    width: calc((100vh - 4vmin) * 0.75);
-    margin: auto;
-    position: relative;
-}
-
-.dashboard-full .webcam_unrotated .webcam_fixed_ratio.ratio169 {
-    width: var(--dashboard_full_webcam_width);
-    height: calc(var(--dashboard_full_webcam_width) * 0.5625);
-    padding-bottom: 0px!important;
-    margin-top: calc((100vh - 4vmin) / 2 - (var(--dashboard_full_webcam_width) * 0.5625) / 2);
-}
-
-.dashboard-full .webcam_unrotated .webcam_fixed_ratio.ratio43 {
-    width: var(--dashboard_full_webcam_width);
-    height: calc(var(--dashboard_full_webcam_width) * 0.75);
-    padding-bottom: 0px!important;
-    margin-top: calc((100vh - 4vmin) / 2 - (var(--dashboard_full_webcam_width) * 0.75) / 2);
-}
-
-.dashboard-full.dashboardOverlayFull .webcam_unrotated .webcam_fixed_ratio.ratio43 {
-    height: 100vh;
-    width: calc(100vh * 1.33);
-    padding-bottom: 0px!important;
-    position: relative;
-    margin: auto;
-}
 
 /* Small Screens */
 

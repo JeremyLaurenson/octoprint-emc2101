@@ -33,7 +33,7 @@ try:
 	else:
 		temperature=etemperature
 except:
-	fanspeed=0
+	fanspeed=-1
 
 
 try:
