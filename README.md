@@ -12,6 +12,9 @@ Plug your HAT/Shim onto the Raspberry Pi and you get a connector that you can pl
 
 If you need more than one, then use the 8 Port Mux to break out that single cable into 8 cables, each connected to a fan/temp controller AND/OR a high acuracy temperature sensor. If you have a Fan+High accuracy sensor, this plugin with "prefer" the high accuracy sensor for the temperature readings.
 
+<img width="907" alt="PluginDiagram" src="https://user-images.githubusercontent.com/942556/161385401-4b180ceb-f1d2-4fc2-b69f-940fa0979fa4.png">
+
+
 <img width="635" alt="Screen Shot 2022-03-05 at 11 08 22 AM" src="https://user-images.githubusercontent.com/942556/156891679-1196be1e-3088-4a72-9509-f33ac88fe568.png">
 <img width="503" alt="Screen Shot 2022-03-19 at 8 53 05 AM" src="https://user-images.githubusercontent.com/942556/159121896-3c51a58e-b3ab-46f2-a8f8-d976e4c07d84.png">
 <img width="639" alt="Screen Shot 2022-03-05 at 11 08 15 AM" src="https://user-images.githubusercontent.com/942556/156891682-f5da3b3b-6f8a-4bcc-b7db-86351d9884b5.png">
