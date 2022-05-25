@@ -51,4 +51,4 @@ try:
 			        print(" | Not found")
 except:
         for channel in range(8):
-                print("{} | Not found | Not found".format(channel+1))
+                print("{} | Not found".format(channel+1))

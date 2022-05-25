@@ -14,7 +14,7 @@ plugin_package = "octoprint_emc2101"
 plugin_name = "OctoPrint-Emc2101"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.0.7"
+plugin_version = "0.0.8"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module

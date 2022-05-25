@@ -372,7 +372,9 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
             self._settings.set(["h_detected"], 0)
             self._settings.set(["i_detected"], 0)
             temp_sensors = output.split("\n")
+            self._logger.info("EMC2101 crontroller channel start scan.")
             for sensor in temp_sensors:
+                self._logger.info("EMC2101 is checking sensor channel %s",sensor)
                 if sensor.find("|")>0:
                     channel, channelstatus = sensor.split("|")
                     channelstatus=channelstatus.strip()
@@ -419,12 +421,11 @@ class Emc2101Plugin(octoprint.plugin.SettingsPlugin,
                     self.temperatures.append(-1)
                     self.cooldowntimers.append(0)
                     self.override.append(0)
-
+            self._logger.info("Did not find a | in this line...")
 
                 
             return
         except Exception as ex:
-            print(ex)
             self._logger.info(
                 "Failed to execute EMC2101 python subscript...")
             return (0, 0)
