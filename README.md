@@ -78,6 +78,13 @@ In order to use this sensor, simply plug it onto the 2101 as a daisy chained dev
 
 <img width="721" alt="Screen Shot 2022-04-01 at 8 08 19 AM" src="https://user-images.githubusercontent.com/942556/161260408-51b612e4-ddd2-49b4-a196-1afcb537a52d.png">
 
+## Prerequisites
+
+Make sure the Raspberry Pi has I2C support enabled.
+
+     sudo raspi-config
+
+Go to "Interfacing Options" select "I2C" and set to "Yes".
 
 ## Setup
 
