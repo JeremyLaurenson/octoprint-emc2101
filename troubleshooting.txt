@@ -1,0 +1,26 @@
+Some guidance for troubleshooting:
+
+On your octoprint server, you can run the python scripts that the plugin uses to get temps etc and make sure theyre working:
+
+python3 EMCSCAN.py
+
+This will scan the i2c bus to check for the existance of the various boards and output a list of what it finds on the various channels.
+Channel 0 being direct connected, and channels 1 through 8 being the channels on the TCA9548A if you have it connected.
+
+0 | 2101
+1 | 9808
+2 | Not found
+etc
+
+If youre not geting this output, you need to troubleshoot and make sure, for example, that you have all the python libraries
+installed for the 2101 etc...
+
+Once this is done, you should then be able to test the query script that goes and retrieves the temp and speeds from each channel:
+
+python3 EMC2101.py 1 0
+
+The first parameter is the channel you want to read, and the second parameter is 0 if you want to use the obboard sensor of the temperature
+chip, or a 1 if you have a 2101 with an external temperature transistor.
+
+You should see an output of the channel temp and speed. If you get a -1 | -1 then there is an error, usually in that you didnt pass the 2 parameters properly.
+
